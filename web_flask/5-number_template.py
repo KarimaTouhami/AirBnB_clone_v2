@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ module doc """
 from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -34,6 +35,11 @@ def python(text):
 def number(n):
     """ def doc """
     return '{} is a number'.format(n)
+
+
+@app.route('/number_template/<int:n>')
+def number_template(n):
+    return render_template('5-number.html', number=n)
 
 
 if __name__ == "__main__":

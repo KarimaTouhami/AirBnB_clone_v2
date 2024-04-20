@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ module doc """
 from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -34,6 +35,16 @@ def python(text):
 def number(n):
     """ def doc """
     return '{} is a number'.format(n)
+
+
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
+def number_odd_or_even(n):
+    """ def doc """
+    if n % 2 == 0:
+        p = 'even'
+    else:
+        p = 'odd'
+    return render_template('6-number_odd_or_even.html', number=n, parity=p)
 
 
 if __name__ == "__main__":

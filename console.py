@@ -372,7 +372,7 @@ class HBNBCommand(cmd.Cmd):
 
             args = [att_name, att_val]
 
-        # create new_dict from storage
+        # retrieve dictionary of current objects
         new_dict = storage.all()[key]
 
         # iterate through attr names and values
@@ -383,17 +383,17 @@ class HBNBCommand(cmd.Cmd):
                 if not att_name:  # check for att_name
                     print("** attribute name missing **")
                     return
-                if not att_val:  # check for att_val
+                if not att_val:  # check for att_value
                     print("** value missing **")
                     return
-                # check if att_name is valid
+                # type cast as necessary
                 if att_name in HBNBCommand.types:
                     att_val = HBNBCommand.types[att_name](att_val)
 
-                # update new_dict with new att_name and att_val
+                # update dictionary with name, value pair
                 new_dict.__dict__.update({att_name: att_val})
 
-        new_dict.save()
+        new_dict.save()  # save updates to file
 
     def help_update(self):
         """Help information for the update class"""

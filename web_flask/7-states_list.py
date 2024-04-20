@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 """ module doc """
 from flask import Flask
+from flask import render_template
+from models import storage
+from models.state import State
 
 app = Flask(__name__)
 
@@ -34,6 +37,29 @@ def python(text):
 def number(n):
     """ def doc """
     return '{} is a number'.format(n)
+
+
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
+def number_odd_or_even(n):
+    """ def doc """
+    if n % 2 == 0:
+        p = 'even'
+    else:
+        p = 'odd'
+    return render_template('6-number_odd_or_even.html', number=n, parity=p)
+
+
+@app.route('/states_list', strict_slashes=False)
+def states_list():
+    """ def doc """
+    states = storage.all(State)
+    return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def close(error):
+    """ def doc """
+    storage.close()
 
 
 if __name__ == "__main__":
